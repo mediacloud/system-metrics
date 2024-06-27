@@ -1,0 +1,41 @@
+- basic_biden:
+  COLLECTIONS:
+    - 34412234 #us national
+  QUERY: "biden"
+
+- basic_monkey:
+  COLLECTIONS:
+    - 34412234 #us national
+  QUERY: "monkey"
+
+- meax_long_english:
+  COLLECTIONS:
+    - 34412234 #us national
+    - 34412409 #german national
+    - 38376341 #nigeria national
+  QUERY: ("global health" OR HIV OR malaria OR "maternal health" OR "maternal child health"~5 OR tuberculosis OR ((enteric OR gastrointestinal OR diarrheal) AND disease AND children) OR ((rotavirus OR shigella OR cholera OR typhoid OR typhus) AND vaccin*) OR "neglected tropical diseases" OR onchocerciasis OR "river blindness" OR "lymphatic filariasis" OR elephantiasis OR "visceral leishmaniasis" OR "black fever" OR "soil-transmitted helminthiases" OR hookworm OR roundworm OR whipworm OR schistosomiasis OR "snail fever" OR dracunculiasis OR "Guinea worm disease" OR "human African trypanosomiasis" OR "sleeping sickness" OR "Chagas disease" OR leprosy OR "Hansen’s disease" OR trachoma OR "health equity" OR polio OR "nutrition global"~10 OR vaccination OR "pandemic prepared"~10 OR "pandemic preparedness"~10)
+
+- meag_negation_english:
+  COLLECTIONS:
+    - 34412234 #us national
+    - 34412409 #german national
+    - 38376341 #nigeria national
+  QUERY: (title:(health* OR medic* OR cure* OR disease* OR treatment* OR pharma* OR infect*) AND title:(research* OR innovat* OR startup* OR "make history" OR "makes history" OR "making history" OR first OR develop* OR unveil* OR discover* OR advanc* OR launch* OR breakthrough*)) AND NOT (title:(actor OR star OR rumour* OR rumor* OR "health scare" OR "health status" OR singer OR guitarist OR "sustainable development" OR "health update" OR "Fact check" OR "singer's" OR "financial health" OR "prince" OR "unfair treatment" OR "VIP treatment" OR "viral video" OR "health scares" OR "health battle" OR "health battles" OR "Discovery Health" OR "health woes" OR "health reasons" OR "first class" OR "first case"~3 OR "leadership development" OR lifehack OR "Advanced Health" OR "Jamie Foxx") OR (media_id:510 OR media_id:221))`
+
+- meag_simple_german:
+  COLLECTIONS:
+    - 34412234 #us national
+    - 34412409 #german national
+    - 38376341 #nigeria national
+  QUERY: Malaria* AND language:de -canonical_domain:news.de
+
+- daf_argentina:
+  QUERY: (asesinato OR homicidio OR femicidio OR feminicidio OR travesticidio OR transfemicidio OR Lesbicidio OR asesina OR asesinada OR muerta OR muerte OR mata OR mató OR dispara OR balea OR apuñala OR acuchillada OR golpeada OR estrangula OR ahogada OR degollada OR incinera OR quemada OR envenenada OR "prendida fuego" OR descuartizada OR "sin vida" OR intento OR "intento de asesinato" OR "Intentó asesinarla" OR "intento de femicidio" OR "intento de transfemicidio" OR "intento de travesticidio" OR "intento de lesbicidio" OR "intentó matarla" OR "intentó matarlo" OR abuso OR acoso OR discriminacion OR "pelea de pareja" OR insultó OR gritó OR golpeó OR hostigó OR agredió OR corrió OR desalojó OR echó OR burlaron OR vergüenza OR mofaron ) AND (mujer OR niña OR "una joven" OR "una adolescente" OR "una chica varón" OR niño OR "un joven" OR "un adolescente" OR "un chico" OR gay OR lesbiana OR "cuerpo de una mujer" OR "restos" OR "cadaver de una mujer" OR "cuerpo de un varon" OR "cuerpo de una trans" OR "cuerpo de una travesti" OR "restos" OR "cadaver de una mujer" OR prostituta OR "trabajadora sexual" OR "mujer trans" OR "varon trans" OR "una travesti" OR "no binario" OR transgenero OR "hombre vestido de mujer" OR "pareja gay" OR pareja OR "dos mujeres" OR torta OR marica)
+
+- daf_korea:
+  QUERY: (여자 OR 여성 OR 여성혐오 OR 여대생 OR 묻지마 OR 여성 타겟 OR 여자친구 OR 아내 OR 딸 OR 그루밍 OR 스토킹) AND (살인 OR 살해 OR 흉기 OR 살인미수 OR 범죄)
+
+- daf_en:
+  QUERY: ((murder* OR homicide* OR femicide OR feminicide OR murdered OR dead OR death* OR killed OR murdered OR shot OR stabbed OR struck OR strangled OR "life-less")  AND (police* OR officer* OR custody) AND NOT (covid* OR vaccin*) AND (wom*n OR girl* OR transgender OR trans OR nonbinary OR non-binary OR sayhername OR blm OR blacklivesmatter OR "black lives matter"))
+
+
