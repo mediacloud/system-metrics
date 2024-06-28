@@ -1,7 +1,10 @@
 from pprint import pprint
 import argparse
 from prefect import flow, get_run_logger
-from prefect.runtime import flow_run
+
+from prefect.deployments import Deployment
+from prefect.infrastructure import Process
+
 from sous_chef import RunPipeline, recipe_loader
 
 @flow()
@@ -22,23 +25,27 @@ def RunMetrics():
 	
 	print(run_data)
 
+	
+
 if __name__ == "__main__":
+	
+	#Continually annoyed by building images in prefect. 
+	#Not sure how to get the requirements into this image here in a way that feels nice to include as code. 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-d", "--deploy", action='store_true')
 
 	args = parser.parse_args()
 
 	if args.deploy:
-		print("Deploying to prefect")
-		flow.from_source(
-			
-	        source="https://github.com/mediacloud/system-metrics.git",
-	        entrypoint="main.py:RunMetrics",
-    	).deploy(
+		Deployment.build_from_flow(
+	        flow=RunMetrics, 
        		name="daily-metrics",
         	work_pool_name="Guerin",
-        	cron="0 0 * * *",
-    	)
+        	infrastructure=Process(
+		        env={"PIP_REQUIREMENTS": "requirements.txt"}
+		    )
+    	).apply()
+
 	else:
 		RunMetrics()
 
