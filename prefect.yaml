@@ -47,3 +47,8 @@ deployments:
       image: '{{ build_image.image }}'
   parameters: {}
   schedules: []
+  schedule:
+    cron: 0 0 * * *
+    timezone: UTC
+    day_or: true
+    active: true
