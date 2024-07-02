@@ -13,6 +13,10 @@ stats_directory = "metrics/query-benchmark/"
 
 @flow()
 def RunMetrics(test=False):
+
+	statsd_client = statsd.StatsdClient(
+		statsd_url, None, stats_directory)
+
 	mixins_file = open("queries.yaml", "r")
 	recipe_file = open("QueryRecipe.yaml").read()
 
@@ -20,31 +24,31 @@ def RunMetrics(test=False):
 	if test:
 		mixins = [mixins[0]]
 	
+
 	run_data = {}
 	for template_params in mixins:
 		json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
 		json_conf["name"] = template_params["NAME"]
 
+		#run. that. pipeline!!!
 		results = RunPipeline(json_conf)
+
+		name = template_params["NAME"]
 		
-		run_data[template_params["NAME"]] = list(results.values())
-	
-	statsd_client = statsd.StatsdClient(
-		statsd_url, None, stats_directory)
+		elapsed = list(results.values())[0]["ElapsedTime"]
+		run_data[name] = elapsed
 
-	for name, value in run_data.items():
-		print(f"{name}:{value}")
-		statsd_client.timing(name, value)
+		#Actually report the data here
+		
+		statsd_client.timing(template_params["NAME"], list(results.values()))
 
-	###Then I think we want to report a timing metric to statsd for each of these runs? is that right?
+	print(run_data)
 
 
 	
 
 if __name__ == "__main__":
 	
-	#Continually annoyed by building images in prefect. 
-	#Not sure how to get the requirements into this image here in a way that feels nice to include as code. 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-t", "--test", action='store_true')
 	args = parser.parse_args()

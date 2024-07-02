@@ -1,12 +1,12 @@
-- basic_biden:
-    COLLECTIONS:
-        - 34412234 #us national
-    QUERY: "biden"
-
 - basic_monkey:
     COLLECTIONS:
         - 34412234 #us national
     QUERY: "monkey"
+
+- basic_biden:
+    COLLECTIONS:
+        - 34412234 #us national
+    QUERY: "biden"
 
 - meax_long_english:
     COLLECTIONS:
