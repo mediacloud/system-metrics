@@ -40,7 +40,7 @@ def RunMetrics(test=False):
 
 		#Actually report the data here
 		
-		statsd_client.timing(template_params["NAME"], list(results.values()))
+		statsd_client.timing(name, elapsed)
 
 	print(run_data)
 
