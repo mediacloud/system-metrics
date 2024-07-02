@@ -13,7 +13,7 @@ stats_directory = "metrics/query-benchmark/"
 
 @flow()
 def RunMetrics(test=False):
-
+	logger = get_run_logger()
 	statsd_client = statsd.StatsdClient(
 		statsd_url, None, stats_directory)
 
@@ -39,7 +39,7 @@ def RunMetrics(test=False):
 		run_data[name] = elapsed
 
 		#Actually report the data here
-		
+		logger.info(f"{name}:{elapsed}")
 		statsd_client.timing(name, elapsed)
 
 	print(run_data)
