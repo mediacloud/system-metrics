@@ -29,13 +29,21 @@
         - 38376341 #nigeria national
     QUERY: Malaria* AND language:de -canonical_domain:news.de
 
-#- daf_argentina:
-#  QUERY: (asesinato OR homicidio OR femicidio OR feminicidio OR travesticidio OR transfemicidio OR Lesbicidio OR asesina OR asesinada OR muerta OR muerte OR mata OR mató OR dispara OR balea OR apuñala OR acuchillada OR golpeada OR estrangula OR ahogada OR degollada OR incinera OR quemada OR envenenada OR "prendida fuego" OR descuartizada OR "sin vida" OR intento OR "intento de asesinato" OR "Intentó asesinarla" OR "intento de femicidio" OR "intento de transfemicidio" OR "intento de travesticidio" OR "intento de lesbicidio" OR "intentó matarla" OR "intentó matarlo" OR abuso OR acoso OR discriminacion OR "pelea de pareja" OR insultó OR gritó OR golpeó OR hostigó OR agredió OR corrió OR desalojó OR echó OR burlaron OR vergüenza OR mofaron ) AND (mujer OR niña OR "una joven" OR "una adolescente" OR "una chica varón" OR niño OR "un joven" OR "un adolescente" OR "un chico" OR gay OR lesbiana OR "cuerpo de una mujer" OR "restos" OR "cadaver de una mujer" OR "cuerpo de un varon" OR "cuerpo de una trans" OR "cuerpo de una travesti" OR "restos" OR "cadaver de una mujer" OR prostituta OR "trabajadora sexual" OR "mujer trans" OR "varon trans" OR "una travesti" OR "no binario" OR transgenero OR "hombre vestido de mujer" OR "pareja gay" OR pareja OR "dos mujeres" OR torta OR marica)
+- daf_argentina:
+    COLLECTIONS:
+        - 38376412
+        - 34412043
+    QUERY: (asesinato OR homicidio OR femicidio OR feminicidio OR travesticidio OR transfemicidio OR Lesbicidio OR asesina OR asesinada OR muerta OR muerte OR mata OR mató OR dispara OR balea OR apuñala OR acuchillada OR golpeada OR estrangula OR ahogada OR degollada OR incinera OR quemada OR envenenada OR "prendida fuego" OR descuartizada OR "sin vida" OR intento OR "intento de asesinato" OR "Intentó asesinarla" OR "intento de femicidio" OR "intento de transfemicidio" OR "intento de travesticidio" OR "intento de lesbicidio" OR "intentó matarla" OR "intentó matarlo" OR abuso OR acoso OR discriminacion OR "pelea de pareja" OR insultó OR gritó OR golpeó OR hostigó OR agredió OR corrió OR desalojó OR echó OR burlaron OR vergüenza OR mofaron ) AND (mujer OR niña OR "una joven" OR "una adolescente" OR "una chica varón" OR niño OR "un joven" OR "un adolescente" OR "un chico" OR gay OR lesbiana OR "cuerpo de una mujer" OR "restos" OR "cadaver de una mujer" OR "cuerpo de un varon" OR "cuerpo de una trans" OR "cuerpo de una travesti" OR "restos" OR "cadaver de una mujer" OR prostituta OR "trabajadora sexual" OR "mujer trans" OR "varon trans" OR "una travesti" OR "no binario" OR transgenero OR "hombre vestido de mujer" OR "pareja gay" OR pareja OR "dos mujeres" OR torta OR marica)
 
-#- daf_korea:
-#  QUERY: (여자 OR 여성 OR 여성혐오 OR 여대생 OR 묻지마 OR 여성 타겟 OR 여자친구 OR 아내 OR 딸 OR 그루밍 OR 스토킹) AND (살인 OR 살해 OR 흉기 OR 살인미수 OR 범죄)
+- daf_korea:
+    COLLECTIONS:
+        - 34412127
+    QUERY: (여자 OR 여성 OR 여성혐오 OR 여대생 OR 묻지마 OR 여성 타겟 OR 여자친구 OR 아내 OR 딸 OR 그루밍 OR 스토킹) AND (살인 OR 살해 OR 흉기 OR 살인미수 OR 범죄)
 
-#- daf_en:
-#  QUERY: ((murder* OR homicide* OR femicide OR feminicide OR murdered OR dead OR death* OR killed OR murdered OR shot OR stabbed OR struck OR strangled OR "life-less")  AND (police* OR officer* OR custody) AND NOT (covid* OR vaccin*) AND (wom*n OR girl* OR transgender OR trans OR nonbinary OR non-binary OR sayhername OR blm OR blacklivesmatter OR "black lives matter"))
+- daf_en:
+    COLLECTIONS:
+        - 38379429
+        - 34412234
+    QUERY: ((murder* OR homicide* OR femicide OR feminicide OR murdered OR dead OR death* OR killed OR murdered OR shot OR stabbed OR struck OR strangled OR "life-less")  AND (police* OR officer* OR custody) AND NOT (covid* OR vaccin*) AND (wom*n OR girl* OR transgender OR trans OR nonbinary OR non-binary OR sayhername OR blm OR blacklivesmatter OR "black lives matter"))
 
 
