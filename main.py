@@ -9,7 +9,7 @@ from sous_chef import RunPipeline, recipe_loader
 import statsd
 
 statsd_url = "stats.tarbell.mediacloud.org"
-stats_directory = "system-metrics.query-benchmark"
+stats_directory = "mc.prod.system-metrics"
 
 @flow()
 def RunMetrics(test=False):

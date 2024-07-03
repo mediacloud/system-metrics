@@ -15,14 +15,14 @@
         - 38376341 #nigeria national
     QUERY: ("global health" OR HIV OR malaria OR "maternal health" OR "maternal child health"~5 OR tuberculosis OR ((enteric OR gastrointestinal OR diarrheal) AND disease AND children) OR ((rotavirus OR shigella OR cholera OR typhoid OR typhus) AND vaccin*) OR "neglected tropical diseases" OR onchocerciasis OR "river blindness" OR "lymphatic filariasis" OR elephantiasis OR "visceral leishmaniasis" OR "black fever" OR "soil-transmitted helminthiases" OR hookworm OR roundworm OR whipworm OR schistosomiasis OR "snail fever" OR dracunculiasis OR "Guinea worm disease" OR "human African trypanosomiasis" OR "sleeping sickness" OR "Chagas disease" OR leprosy OR "Hansen’s disease" OR trachoma OR "health equity" OR polio OR "nutrition global"~10 OR vaccination OR "pandemic prepared"~10 OR "pandemic preparedness"~10)
 
-- meax_long_english:
+- meax_complex_english:
     COLLECTIONS:
         - 34412234 #us national
         - 34412409 #german national
         - 38376341 #nigeria national
     QUERY: (title:(health* OR medic* OR cure* OR disease* OR treatment* OR pharma* OR infect*) AND title:(research* OR innovat* OR startup* OR "make history" OR "makes history" OR "making history" OR first OR develop* OR unveil* OR discover* OR advanc* OR launch* OR breakthrough*)) AND NOT (title:(actor OR star OR rumour* OR rumor* OR "health scare" OR "health status" OR singer OR guitarist OR "sustainable development" OR "health update" OR "Fact check" OR "singer's" OR "financial health" OR "prince" OR "unfair treatment" OR "VIP treatment" OR "viral video" OR "health scares" OR "health battle" OR "health battles" OR "Discovery Health" OR "health woes" OR "health reasons" OR "first class" OR "first case"~3 OR "leadership development" OR lifehack OR "Advanced Health" OR "Jamie Foxx") OR (media_id:510 OR media_id:221))`
 
-- meax_long_english:
+- meax_german:
     COLLECTIONS:
         - 34412234 #us national
         - 34412409 #german national
