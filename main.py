@@ -9,7 +9,7 @@ from sous_chef import RunPipeline, recipe_loader
 import statsd
 
 statsd_url = "statsd://stats.tarbell.mediacloud.org"
-stats_directory = "metrics/query-benchmark/"
+stats_directory = "metrics.query-benchmark"
 
 @flow()
 def RunMetrics(test=False):
@@ -34,13 +34,13 @@ def RunMetrics(test=False):
 		results = RunPipeline(json_conf)
 
 		name = template_params["NAME"]
-		
-		elapsed = list(results.values())[0]["ElapsedTime"]
-		run_data[name] = elapsed
+		if(len(results) > 0):
+			elapsed = list(results.values())[0]["ElapsedTime"]
+			run_data[name] = elapsed
 
-		#Actually report the data here
-		logger.info(f"{name}:{elapsed}")
-		statsd_client.timing(name, elapsed)
+			#Actually report the data here
+			logger.info(f"{name}:{elapsed}")
+			statsd_client.timing(name, elapsed)
 
 	print(run_data)
 
