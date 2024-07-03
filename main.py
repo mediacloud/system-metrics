@@ -8,8 +8,8 @@ from prefect.infrastructure import Process
 from sous_chef import RunPipeline, recipe_loader
 import statsd
 
-statsd_url = "statsd://stats.tarbell.mediacloud.org"
-stats_directory = "metrics.query-benchmark"
+statsd_url = "stats.tarbell.mediacloud.org"
+stats_directory = "system-metrics.query-benchmark"
 
 @flow()
 def RunMetrics(test=False):
