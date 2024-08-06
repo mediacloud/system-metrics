@@ -9,13 +9,15 @@ from sous_chef import RunPipeline, recipe_loader
 import statsd
 
 statsd_url = "stats.tarbell.mediacloud.org"
-stats_directory = "mc.prod.system-metrics"
+
+prod_stats_directory = "mc.prod.system-metrics"
+staging_stats_directory = "mc.staging.system-metrics"
 
 @flow()
 def RunMetrics(test=False):
 	logger = get_run_logger()
 	statsd_client = statsd.StatsdClient(
-		statsd_url, None, stats_directory)
+		statsd_url, None, prod_stats_directory)
 
 	mixins_file = open("queries.yaml", "r")
 	recipe_file = open("QueryRecipe.yaml").read()
@@ -24,9 +26,11 @@ def RunMetrics(test=False):
 	if test:
 		mixins = [mixins[0]]
 	
-
+	
+	#For Prod
 	run_data = {}
 	for template_params in mixins:
+		template_params["STAGING"] = False
 		json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
 		json_conf["name"] = template_params["NAME"]
 
@@ -43,7 +47,28 @@ def RunMetrics(test=False):
 			statsd_client.timing(name, elapsed)
 
 	print(run_data)
+	
+	statsd_client = statsd.StatsdClient(
+		statsd_url, None, staging_stats_directory)
 
+	#For Staging
+	run_data = {}
+	for template_params in mixins:
+		template_params["STAGING"] = True
+		json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
+		json_conf["name"] = template_params["NAME"]
+
+		#run. that. pipeline!!!
+		results = RunPipeline(json_conf)
+
+		name = template_params["NAME"]
+		if(len(results) > 0):
+			elapsed = list(results.values())[0]["ElapsedTime"]
+			run_data[name] = elapsed
+
+			#Actually report the data here
+			logger.info(f"{name}:{elapsed}")
+			statsd_client.timing(name, elapsed)
 
 	
 

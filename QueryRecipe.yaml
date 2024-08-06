@@ -2,9 +2,11 @@ vars:
     - QUERY
     - COLLECTIONS
     - NAME
+    - STAGING
 steps:
     - QueryOnlineNews:
         params:
+            use_staging: $STAGING
             date_mode: "daily"
             window_size: 60
             query: $QUERY
