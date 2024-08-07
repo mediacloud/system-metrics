@@ -14,7 +14,7 @@ prod_stats_directory = "mc.prod.system-metrics"
 staging_stats_directory = "mc.staging.system-metrics"
 
 @flow()
-def RunMetrics(test=False):
+def RunMetrics(staging_only=False):
 	logger = get_run_logger()
 	statsd_client = statsd.StatsdClient(
 		statsd_url, None, prod_stats_directory)
@@ -26,27 +26,27 @@ def RunMetrics(test=False):
 	if test:
 		mixins = [mixins[0]]
 	
+	if not staging_only:
+		#For Prod
+		run_data = {}
+		for template_params in mixins:
+			template_params["STAGING"] = False
+			json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
+			json_conf["name"] = template_params["NAME"]
+
+			#run. that. pipeline!!!
+			results = RunPipeline(json_conf)
+
+			name = template_params["NAME"]
+			if(len(results) > 0):
+				elapsed = list(results.values())[0]["ElapsedTime"]
+				run_data[name] = elapsed
+
+				#Actually report the data here
+				logger.info(f"{name}:{elapsed}")
+				statsd_client.timing(name, elapsed)
+
 	
-	#For Prod
-	run_data = {}
-	for template_params in mixins:
-		template_params["STAGING"] = False
-		json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
-		json_conf["name"] = template_params["NAME"]
-
-		#run. that. pipeline!!!
-		results = RunPipeline(json_conf)
-
-		name = template_params["NAME"]
-		if(len(results) > 0):
-			elapsed = list(results.values())[0]["ElapsedTime"]
-			run_data[name] = elapsed
-
-			#Actually report the data here
-			logger.info(f"{name}:{elapsed}")
-			statsd_client.timing(name, elapsed)
-
-	print(run_data)
 	
 	statsd_client = statsd.StatsdClient(
 		statsd_url, None, staging_stats_directory)
