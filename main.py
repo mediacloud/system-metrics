@@ -39,12 +39,16 @@ def RunMetrics(test=False, staging_only=False):
 
 			name = template_params["NAME"]
 			if(len(results) > 0):
-				elapsed = list(results.values())[0]["ElapsedTime"]
-				run_data[name] = elapsed
+				list_elapsed = list(results.values())[0]["ElapsedTime"]
+				run_data[name]["list"] = list_elapsed
+
+				count_elapsed = list(results.values())[1]["ElapsedTime"]
+				run_data[name]["count"] = count_elapsed
 
 				#Actually report the data here
-				logger.info(f"{name}:{elapsed}")
-				statsd_client.timing(name, elapsed)
+				logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
+				statsd_client.timing(f"list.{name}", elapsed)
+				statsd_client.timing(f"count.{name}", elapsed)
 
 	
 	
@@ -63,12 +67,16 @@ def RunMetrics(test=False, staging_only=False):
 
 		name = template_params["NAME"]
 		if(len(results) > 0):
-			elapsed = list(results.values())[0]["ElapsedTime"]
-			run_data[name] = elapsed
+			list_elapsed = list(results.values())[0]["ElapsedTime"]
+			run_data[name]["list"] = list_elapsed
+
+			count_elapsed = list(results.values())[1]["ElapsedTime"]
+			run_data[name]["count"] = count_elapsed
 
 			#Actually report the data here
-			logger.info(f"{name}:{elapsed}")
-			statsd_client.timing(name, elapsed)
+			logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
+			statsd_client.timing(f"list.{name}", elapsed)
+			statsd_client.timing(f"count.{name}", elapsed)
 
 	
 

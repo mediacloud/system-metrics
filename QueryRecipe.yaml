@@ -11,3 +11,11 @@ steps:
             window_size: 60
             query: $QUERY
             collections: $COLLECTIONS
+
+    - CountOvertime:
+        params:
+            use_staging: $STAGING
+            date_mode: "daily"
+            window_size: 60
+            query: $QUERY
+            collections: $COLLECTIONS
