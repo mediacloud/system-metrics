@@ -14,7 +14,7 @@ prod_stats_directory = "mc.prod.system-metrics"
 staging_stats_directory = "mc.staging.system-metrics"
 
 @flow()
-def RunMetrics(staging_only=False):
+def RunMetrics(test=False, staging_only=False):
 	logger = get_run_logger()
 	statsd_client = statsd.StatsdClient(
 		statsd_url, None, prod_stats_directory)
