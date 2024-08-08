@@ -47,8 +47,8 @@ def RunMetrics(test=False, staging_only=False):
 
 				#Actually report the data here
 				logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
-				statsd_client.timing(f"list.{name}", elapsed)
-				statsd_client.timing(f"count.{name}", elapsed)
+				statsd_client.timing(f"list.{name}", list_elapsed)
+				statsd_client.timing(f"count.{name}", count_elapsed)
 
 	
 	
@@ -75,8 +75,8 @@ def RunMetrics(test=False, staging_only=False):
 
 			#Actually report the data here
 			logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
-			statsd_client.timing(f"list.{name}", elapsed)
-			statsd_client.timing(f"count.{name}", elapsed)
+			statsd_client.timing(f"list.{name}", list_elapsed)
+			statsd_client.timing(f"count.{name}", count_elapsed)
 
 	
 
