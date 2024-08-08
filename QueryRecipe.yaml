@@ -12,7 +12,7 @@ steps:
             query: $QUERY
             collections: $COLLECTIONS
 
-    - CountOvertime:
+    - CountOverTime:
         params:
             use_staging: $STAGING
             date_mode: "daily"
