@@ -40,10 +40,10 @@ def RunMetrics(test=False, staging_only=False):
 			name = template_params["NAME"]
 			if(len(results) > 0):
 				list_elapsed = list(results.values())[0]["ElapsedTime"]
-				run_data[name]["list"] = list_elapsed
+				run_data[f"list.{name}"] = list_elapsed
 
 				count_elapsed = list(results.values())[1]["ElapsedTime"]
-				run_data[name]["count"] = count_elapsed
+				run_data[f"count.{name}"] = count_elapsed
 
 				#Actually report the data here
 				logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
@@ -68,10 +68,10 @@ def RunMetrics(test=False, staging_only=False):
 		name = template_params["NAME"]
 		if(len(results) > 0):
 			list_elapsed = list(results.values())[0]["ElapsedTime"]
-			run_data[name]["list"] = list_elapsed
+			run_data[f"list.{name}"] = list_elapsed
 
 			count_elapsed = list(results.values())[1]["ElapsedTime"]
-			run_data[name]["count"] = count_elapsed
+			run_data[f"count.{name}"] = count_elapsed
 
 			#Actually report the data here
 			logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
