@@ -1,2 +1,2 @@
-sous-chef @ git+https://github.com/mediacloud/sous-chef@v0.8
+sous-chef @ git+https://github.com/mediacloud/sous-chef@v0.9
 statsd-client==1.0.*
