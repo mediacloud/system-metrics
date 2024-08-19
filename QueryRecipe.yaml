@@ -3,10 +3,12 @@ vars:
     - COLLECTIONS
     - NAME
     - STAGING
+    - STAGING_ENDPOINT
 steps:
     - QueryOnlineNews:
         params:
             use_staging: $STAGING
+            staging_endpoint: $STAGING_ENDPOINT
             date_mode: "daily"
             window_size: 60
             query: $QUERY
@@ -15,6 +17,7 @@ steps:
     - CountOverTime:
         params:
             use_staging: $STAGING
+            staging_endpoint: $STAGING_ENDPOINT
             date_mode: "daily"
             window_size: 60
             query: $QUERY

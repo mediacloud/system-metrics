@@ -31,6 +31,7 @@ def RunMetrics(test=False, staging_only=False):
 		run_data = {}
 		for template_params in mixins:
 			template_params["STAGING"] = False
+			template_params["STAGING_ENDPOINT"] = "none"
 			json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
 			json_conf["name"] = template_params["NAME"]
 
@@ -59,6 +60,7 @@ def RunMetrics(test=False, staging_only=False):
 	run_data = {}
 	for template_params in mixins:
 		template_params["STAGING"] = True
+		template_params["STAGING_ENDPOINT"] = 'http://mcweb-staging.steinam.angwin/api/'
 		json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
 		json_conf["name"] = template_params["NAME"]
 
