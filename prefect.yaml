@@ -39,7 +39,7 @@ deployments:
   version:
   tags: []
   description:
-  entrypoint: main.py:RunMetrics
+  entrypoint: main.py:DailyMetrics
   work_pool:
     name: Guerin
     work_queue_name:
@@ -52,3 +52,17 @@ deployments:
     timezone: UTC
     day_or: true
     active: true
+
+- name: dev-system-metrics
+  version:
+  tags: []
+  description:
+  entrypoint: main.py:DevMetrics
+  work_pool:
+    name: Guerin
+    work_queue_name:
+    job_variables:
+      image: '{{ build_image.image }}'
+  parameters: {}
+  schedules: []
+

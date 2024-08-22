@@ -2,12 +2,12 @@ vars:
     - QUERY
     - COLLECTIONS
     - NAME
-    - STAGING
-    - STAGING_ENDPOINT
+    - ENDPOINT
+    - API_BLOCK
 steps:
     - QueryOnlineNews:
         params:
-            use_staging: $STAGING
+            api_block: $API_BLOCK
             staging_endpoint: $STAGING_ENDPOINT
             date_mode: "daily"
             window_size: 60
@@ -16,7 +16,7 @@ steps:
 
     - CountOverTime:
         params:
-            use_staging: $STAGING
+            api_block: $API_BLOCK
             staging_endpoint: $STAGING_ENDPOINT
             date_mode: "daily"
             window_size: 60

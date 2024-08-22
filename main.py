@@ -13,11 +13,13 @@ statsd_url = "stats.tarbell.mediacloud.org"
 prod_stats_directory = "mc.prod.system-metrics"
 staging_stats_directory = "mc.staging.system-metrics"
 
+
 @flow()
-def RunMetrics(test=False, staging_only=False):
+def RunMetrics(test=False, endpoint="", api_block="mediacloud-api-key", realm="prod"):
 	logger = get_run_logger()
+	stats_directory= f"mc.{realm}.system-metrics"
 	statsd_client = statsd.StatsdClient(
-		statsd_url, None, prod_stats_directory)
+		statsd_url, None, stats_directory)
 
 	mixins_file = open("queries.yaml", "r")
 	recipe_file = open("QueryRecipe.yaml").read()
@@ -30,8 +32,8 @@ def RunMetrics(test=False, staging_only=False):
 		#For Prod
 		run_data = {}
 		for template_params in mixins:
-			template_params["STAGING"] = False
-			template_params["STAGING_ENDPOINT"] = "none"
+			template_params["API_BLOCK"]=api_block
+			template_params["ENDPOINT"] = endpoint
 			json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
 			json_conf["name"] = template_params["NAME"]
 
@@ -52,35 +54,19 @@ def RunMetrics(test=False, staging_only=False):
 				statsd_client.timing(f"count.{name}", count_elapsed)
 
 	
-	
-	statsd_client = statsd.StatsdClient(
-		statsd_url, None, staging_stats_directory)
 
-	#For Staging
-	run_data = {}
-	for template_params in mixins:
-		template_params["STAGING"] = True
-		template_params["STAGING_ENDPOINT"] = 'http://mcweb-staging.steinam.angwin/api/'
-		json_conf = recipe_loader.t_yaml_to_conf(recipe_file, **template_params)
-		json_conf["name"] = template_params["NAME"]
+@flow()
+def DailyMetrics(test=False, staging_only=False):
+	if not staging_only:
+		RunMetrics(test)
+	RunMetrics(test, endpoint='http://mcweb-staging.steinam.angwin/api/', api_block="mc-staging-test-api-key", realm="staging")
 
-		#run. that. pipeline!!!
-		results = RunPipeline(json_conf)
+@flow()
+def DevMetrics(test=False, endpoint="", api_block=""):
+	RunMetrics(test, endpoint, api_block, realm="dev")
 
-		name = template_params["NAME"]
-		if(len(results) > 0):
-			list_elapsed = list(results.values())[0]["ElapsedTime"]
-			run_data[f"list.{name}"] = list_elapsed
 
-			count_elapsed = list(results.values())[1]["ElapsedTime"]
-			run_data[f"count.{name}"] = count_elapsed
 
-			#Actually report the data here
-			logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
-			statsd_client.timing(f"list.{name}", list_elapsed)
-			statsd_client.timing(f"count.{name}", count_elapsed)
-
-	
 
 if __name__ == "__main__":
 	
