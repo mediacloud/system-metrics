@@ -22,4 +22,3 @@ steps:
             window_size: 60
             query: $QUERY
             collections: $COLLECTIONS
-            timeout_secs: 6000
