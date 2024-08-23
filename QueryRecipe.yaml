@@ -7,8 +7,8 @@ vars:
 steps:
     - QueryOnlineNews:
         params:
-            api_block: $API_BLOCK
-            staging_endpoint: $STAGING_ENDPOINT
+            api_key_block: $API_BLOCK
+            endpoint: $ENDPOINT
             date_mode: "daily"
             window_size: 60
             query: $QUERY
@@ -16,8 +16,8 @@ steps:
 
     - CountOverTime:
         params:
-            api_block: $API_BLOCK
-            staging_endpoint: $STAGING_ENDPOINT
+            api_key_block: $API_BLOCK
+            endpoint: $ENDPOINT
             date_mode: "daily"
             window_size: 60
             query: $QUERY
