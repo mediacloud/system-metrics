@@ -25,6 +25,8 @@ def RunMetrics(test=False, endpoint="default", api_block="mediacloud-api-key", r
 	recipe_file = open("QueryRecipe.yaml").read()
 
 	mixins = recipe_loader.load_mixins(mixins_file)
+
+	#If testing, only run the very first query, rather than the whole barrage. 
 	if test:
 		mixins = [mixins[0]]
 	
@@ -59,7 +61,8 @@ def DailyMetrics(test=False, staging_only=False):
 	if not staging_only:
 		RunMetrics(test)
 	RunMetrics(test, 
-		endpoint='http://mcweb-staging.steinam.angwin/api/', 
+		
+		endpoint='https://mcweb-staging.tarbell.mediacloud.org/api/', 
 		api_block="mc-staging-test-api-key", 
 		realm="staging")
 
