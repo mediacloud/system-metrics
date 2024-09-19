@@ -39,11 +39,16 @@ def RunMetrics(test=False, endpoint="default", api_block="mediacloud-api-key", r
 		json_conf["name"] = template_params["NAME"]
 		print(json_conf)
 		#run. that. pipeline!!!
-		results = RunPipeline(json_conf)
-	
+		error = False
 		name = template_params["NAME"]
-		
-		if(len(results) > 0):
+		try:
+			results = RunPipeline(json_conf)
+		except RuntimeError:
+			#If one of these breaks, just move on for now. Better error catching is needed in sous-chef. 
+			statsd_client.timing(f"list.{name}", 0)
+			statsd_client.timing(f"count.{name}", 0)
+			#statsd_client.gauge(f"error.{name}", 1)
+		else:
 			list_elapsed = list(results.values())[0]["ElapsedTime"]
 			run_data[f"list.{name}"] = list_elapsed
 			count_elapsed = list(results.values())[1]["ElapsedTime"]
@@ -53,6 +58,7 @@ def RunMetrics(test=False, endpoint="default", api_block="mediacloud-api-key", r
 			logger.info(f"{name}:{list_elapsed}:{count_elapsed}")
 			statsd_client.timing(f"list.{name}", list_elapsed)
 			statsd_client.timing(f"count.{name}", count_elapsed)
+			statsd_client.gauge(f"error.{name}", 0)
 
 	
 
